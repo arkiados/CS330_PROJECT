@@ -31,7 +31,7 @@ namespace CS330_PROJECT.Controllers
         [HttpDelete(Name = "DeleteUser")]
 
         [HttpGet]
-        [Route("api/[controller]/{userEmail}/{userPassword}")]
+        [Route("api/[controller]/login/{userEmail}/{userPassword}")]
         public dynamic Get(string email, string password)
         {
             var token = TokenHelper.GetToken(email, password);

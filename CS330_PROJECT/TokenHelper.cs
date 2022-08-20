@@ -16,7 +16,7 @@ namespace CS330_PROJECT
     {
         public static string GetToken(string email, string password)
         {
-            // do a db lookup to confirm the userName and password
+            // do a db lookup to confirm the email and password
             // create the token
             var token = new Token
             {

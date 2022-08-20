@@ -21,7 +21,7 @@ namespace CS330_PROJECT.Controllers
         }
 
         // This should require SSL
-        [HttpGet(Name = "TokenPost")]
+        [HttpGet(Name = "TokenGet")]
         public dynamic TokenGet(string email, string password)
         {
             var token = TokenHelper.GetToken(email, password);
