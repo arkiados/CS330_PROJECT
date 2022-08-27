@@ -6,7 +6,7 @@ namespace CS330_PROJECT.Controllers
     [Route("api/[controller]")]
     public class UserManagementController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private IUserRepository userRepository;
         public static List<User> users = new List<User>();
         public static int currentId = 0;
 
@@ -19,16 +19,42 @@ namespace CS330_PROJECT.Controllers
             this.userRepository = userRepository;
         }
 
-        [HttpPost(Name = "AddUser")]
         [Authenticator]
+        [HttpPost(Name = "AddUser")]
+        public IActionResult AddUser()
+        {
+
+            return Ok();
+        }
 
         [HttpPut(Name = "ModifyUser")]
+        public IActionResult ModifyUser()
+        {
+
+            return Ok();
+        }
 
         [HttpGet(Name = "GetAllUsers")]
+        public IActionResult GetAllUsers()
+        {
+
+            return Ok(userRepository.Users);
+        }
 
         [HttpGet(Name = "GetUser")]
+        public IActionResult GetUser()
+        {
+
+            return Ok();
+        }
+
 
         [HttpDelete(Name = "DeleteUser")]
+        public IActionResult DeleteUser()
+        {
+
+            return Ok();
+        }
 
         [HttpGet]
         [Route("api/[controller]/login/{userEmail}/{userPassword}")]
