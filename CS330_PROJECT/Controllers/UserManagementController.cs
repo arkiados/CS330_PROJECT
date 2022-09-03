@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CS330_PROJECT.Controllers
 {
     [ApiController]
+    [Authenticator]
     [Route("api/[controller]")]
     public class UserManagementController : ControllerBase
     {
@@ -21,17 +22,41 @@ namespace CS330_PROJECT.Controllers
 
         [Authenticator]
         [HttpPost(Name = "AddUser")]
-        public IActionResult AddUser()
+        public IActionResult AddUser(User user)
         {
-
+            var userAdd = new User()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password,
+            };
+            users.Add(userAdd);
             return Ok();
         }
 
         [HttpPut(Name = "ModifyUser")]
-        public IActionResult ModifyUser()
+        public IActionResult ModifyUser(int id, User user)
         {
+            var listUser = users.Where(x => x.Id == id);
+            
+            var userModify = new User()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password,
+            };
+
+            if (listUser == null)
+            {
+                userRepository.AddUser(userModify);
+            } else
+            {
+                // Not sure how to add the user.
+                userRepository.ModifyUser(id, userModify);
+            }
 
             return Ok();
+
         }
 
         [HttpGet(Name = "GetAllUsers")]
@@ -41,8 +66,9 @@ namespace CS330_PROJECT.Controllers
             return Ok(userRepository.Users);
         }
 
-        [HttpGet(Name = "GetUser")]
-        public IActionResult GetUser()
+        [HttpGet("{id}", Name = "GetUser")]
+        public IActionResult GetUser(string id)
+
         {
 
             return Ok();

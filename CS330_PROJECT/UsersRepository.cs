@@ -3,6 +3,9 @@
     public interface IUserRepository
     {
         IEnumerable<User> Users { get; }
+        void AddUser(User user);
+        bool ModifyUser(int id, User user);
+        bool DeleteUser(int id);
     }
 
     public class UserRepository : IUserRepository
@@ -26,6 +29,21 @@
                 };
                 return items;
             }
+        }
+
+        public void AddUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ModifyUser(int id, User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
