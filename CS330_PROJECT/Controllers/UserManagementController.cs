@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CS330_PROJECT.Controllers
 {
     [ApiController]
-    [Authenticator]
     [Route("api/[controller]")]
     public class UserManagementController : ControllerBase
     {
@@ -37,31 +36,6 @@ namespace CS330_PROJECT.Controllers
             return Ok();
         }
 
-        [HttpPut(Name = "ModifyUser")]
-        public IActionResult ModifyUser(int id, User user)
-        {
-            var listUser = users.Where(x => x.Id == id);
-            
-            var userModify = new User()
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Password = user.Password,
-            };
-
-            if (listUser == null)
-            {
-                users.Add(userModify);
-            } else
-            {
-                // Not sure how to add the user.
-                // users.Add(id, userModify);
-            }
-
-            return Ok();
-
-        }
-
         [HttpGet(Name = "GetAllUsers")]
         public IActionResult GetAllUsers()
         {
@@ -71,21 +45,16 @@ namespace CS330_PROJECT.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         public IActionResult GetUser(int id)
         {
-            return Ok(users[id]);
+            var user = users.FirstOrDefault(t => t.Id == id);
+            return Ok(user);
         }
 
-        [HttpDelete(Name = "DeleteUser")]
-        public IActionResult DeleteUser()
+        [HttpDelete("{id}", Name = "DeleteUser")]
+        public IActionResult DeleteUser(int id)
         {
+            var user = users.FirstOrDefault(t => t.Id == id);
+            users.Remove(user);
             return Ok();
-        }
-
-        [HttpGet]
-        [Route("api/[controller]/login/{userEmail}/{userPassword}")]
-        public dynamic Get(string email, string password)
-        {
-            var token = TokenHelper.GetToken(email, password);
-            return new { Token = token };
         }
     }
 }
