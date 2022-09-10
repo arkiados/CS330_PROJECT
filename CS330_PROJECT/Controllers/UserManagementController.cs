@@ -7,6 +7,12 @@ namespace CS330_PROJECT.Controllers
     public class UserManagementController : ControllerBase
     {
         public static int currentId = 0;
+        private readonly ILogger<UserManagementController> logger;
+
+        public UserManagementController(ILogger<UserManagementController> logger)
+        {
+            this.logger = logger;
+        }
 
         List<User> users = new List<User>()
         {
