@@ -7,18 +7,21 @@ namespace CS330_PROJECT.Controllers
     [Route("api/[controller]")]
     public class UserManagementController : ControllerBase
     {
-        private IUserRepository userRepository;
-        public static List<User> users = new List<User>();
         public static int currentId = 0;
 
-        private readonly ILogger<UserManagementController> logger;
-
-        public UserManagementController(ILogger<UserManagementController> logger,
-        IUserRepository userRepository) 
+        List<User> users = new List<User>()
         {
-            this.logger = logger;
-            this.userRepository = userRepository;
-        }
+            new User { Id = 0, Email = "bobi@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 1, Email = "jill@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 2, Email = "john@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 3, Email = "fred@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 4, Email = "sam@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 5, Email = "fran@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 6, Email = "bill@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 7, Email = "erin@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 8, Email = "tom@pickles.com", Password = "changeme", CreatedDate = DateTime.Now },
+            new User { Id = 9, Email = "ron@pickles.com", Password = "changeme", CreatedDate = DateTime.Now }
+        };
 
         [Authenticator]
         [HttpPost(Name = "AddUser")]
@@ -48,11 +51,11 @@ namespace CS330_PROJECT.Controllers
 
             if (listUser == null)
             {
-                userRepository.AddUser(userModify);
+                users.Add(userModify);
             } else
             {
                 // Not sure how to add the user.
-                userRepository.ModifyUser(id, userModify);
+                // users.Add(id, userModify);
             }
 
             return Ok();
@@ -62,23 +65,18 @@ namespace CS330_PROJECT.Controllers
         [HttpGet(Name = "GetAllUsers")]
         public IActionResult GetAllUsers()
         {
-
-            return Ok(userRepository.Users);
+            return Ok(users);
         }
 
         [HttpGet("{id}", Name = "GetUser")]
-        public IActionResult GetUser(string id)
-
+        public IActionResult GetUser(int id)
         {
-
-            return Ok();
+            return Ok(users[id]);
         }
-
 
         [HttpDelete(Name = "DeleteUser")]
         public IActionResult DeleteUser()
         {
-
             return Ok();
         }
 
