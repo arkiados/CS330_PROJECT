@@ -22,14 +22,15 @@ namespace CS330_PROJECT.Controllers
             new User { Id = 9, Email = "ron@pickles.com", Password = "changeme", CreatedDate = DateTime.Now }
         };
 
-        [HttpPost(Name = "AddUser")]
-        public IActionResult AddUser(User user)
+        [HttpPost]
+        public IActionResult AddUser([FromBody] User user)
         {
             var userAdd = new User()
             {
                 Id = user.Id,
                 Email = user.Email,
                 Password = user.Password,
+                CreatedDate = user.CreatedDate
             };
             users.Add(userAdd);
             return Ok();
