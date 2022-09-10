@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CS330_PROJECT.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserManagementController : ControllerBase
     {
         public static int currentId = 0;
@@ -35,20 +35,19 @@ namespace CS330_PROJECT.Controllers
             return Ok();
         }
 
-        [HttpGet(Name = "GetAllUsers")]
         public IActionResult GetAllUsers()
         {
             return Ok(users);
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
+        [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
             var user = users.FirstOrDefault(t => t.Id == id);
             return Ok(user);
         }
 
-        [HttpDelete("{id}", Name = "DeleteUser")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
             var user = users.FirstOrDefault(t => t.Id == id);
