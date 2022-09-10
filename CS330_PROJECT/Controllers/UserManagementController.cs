@@ -22,7 +22,6 @@ namespace CS330_PROJECT.Controllers
             new User { Id = 9, Email = "ron@pickles.com", Password = "changeme", CreatedDate = DateTime.Now }
         };
 
-        [Authenticator]
         [HttpPost(Name = "AddUser")]
         public IActionResult AddUser(User user)
         {
